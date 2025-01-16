@@ -13,7 +13,8 @@ export function Input({ placeholder, name, id, ...attrs }: InputProps) {
         {...attrs}
         name={name}
         id={inputId}
-        placeholder=" "
+        autoComplete="off"
+        placeholder=" " // Placeholder with an empty string to use placeholder-shown attribute in a custom label
         className="w-full bg-white rounded-lg border border-gray-500 focus:border-gray-800 px-3 pt-4 h-[52px] text-gray-800 text-sm outline-none peer placeholder-shown:pt-0"
       />
 
