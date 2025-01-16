@@ -6,42 +6,36 @@ import { Button } from "../../components/Button";
 import { useLoginController } from "./useLoginController";
 
 export function Login() {
-  const { handleSubmit, register } = useLoginController()
+  const { handleSubmit, register } = useLoginController();
 
   return (
     <>
       <header className="flex flex-col items-center gap-4 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 -tracking-[1px]">Entre em sua conta</h1>
+        <h1 className="text-2xl font-bold -tracking-[1px] text-gray-900">
+          Entre em sua conta
+        </h1>
 
         <p className="space-x-2">
-          <span className="text-gray-700 -tracking-[0.5px]">Novo por aqui?</span>
+          <span className="-tracking-[0.5px] text-gray-700">
+            Novo por aqui?
+          </span>
 
-          <Link to="/register" className="text-teal-900 font-medium -tracking-[0.5px]">Crie uma conta</Link>
+          <Link
+            to="/register"
+            className="font-medium -tracking-[0.5px] text-teal-900"
+          >
+            Crie uma conta
+          </Link>
         </p>
       </header>
 
-      <form 
-        className="mt-14 flex flex-col gap-4"
-        onSubmit={handleSubmit}
-      >
-        <Input 
-          placeholder="E-mail"
-          type="email" 
-          {...register('email')}
-        />
-        
-        <Input 
-          placeholder="Senha" 
-          type="password" 
-          {...register('password')}
-        />
+      <form className="mt-14 flex flex-col gap-4" onSubmit={handleSubmit}>
+        <Input placeholder="E-mail" type="email" {...register("email")} />
 
-        <Button 
-          type="submit"
-        >
-          Entrar
-        </Button>
+        <Input placeholder="Senha" type="password" {...register("password")} />
+
+        <Button type="submit">Entrar</Button>
       </form>
     </>
-  )
+  );
 }

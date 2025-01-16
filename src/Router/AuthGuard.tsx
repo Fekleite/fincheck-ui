@@ -9,11 +9,11 @@ export function AuthGuard({ isPrivate }: AuthGuardProps) {
 
   if (!signedIn && isPrivate) {
     return <Navigate to="/login" replace />;
-  };
+  }
 
   if (signedIn && !isPrivate) {
     return <Navigate to="/" replace />;
-  };
+  }
 
   return <Outlet />;
 }

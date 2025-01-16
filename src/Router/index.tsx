@@ -24,5 +24,5 @@ export function Router() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
