@@ -1,16 +1,17 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
 }
 
-export function Input({ placeholder, name, id, ...attrs }: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ placeholder, name, id, ...attrs }, ref) => {
   const inputId = id ?? name
 
   return (
     <div className="relative flex items-center">
       <input 
         {...attrs}
+        ref={ref}
         name={name}
         id={inputId}
         autoComplete="off"
@@ -26,4 +27,4 @@ export function Input({ placeholder, name, id, ...attrs }: InputProps) {
       </label>
     </div>
   )
-}
+})
