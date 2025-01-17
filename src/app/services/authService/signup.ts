@@ -1,6 +1,6 @@
 import { httpClient } from "../httpClient";
 
-interface SignupRequestBody {
+export interface SignupRequestBody {
   name: string;
   email: string;
   password: string;
