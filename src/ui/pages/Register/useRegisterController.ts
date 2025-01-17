@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 import { authService } from "../../../app/services/authService";
 import { SignupRequestBody } from "../../../app/services/authService/signup";
@@ -41,7 +43,11 @@ export function useRegisterController() {
 
       console.log({ accessToken });
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Ocorreu um erro ao criar sua conta.");
+      }
     }
   });
 
