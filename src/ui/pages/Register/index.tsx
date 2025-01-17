@@ -6,7 +6,7 @@ import { Button } from "../../components/Button";
 import { useRegisterController } from "./useRegisterController";
 
 export function Register() {
-  const { handleSubmit, register, errors } = useRegisterController();
+  const { handleSubmit, register, errors, isPending } = useRegisterController();
 
   return (
     <div>
@@ -51,7 +51,9 @@ export function Register() {
           {...register("password")}
         />
 
-        <Button type="submit">Criar conta</Button>
+        <Button type="submit" isLoading={isPending}>
+          Criar conta
+        </Button>
       </form>
     </div>
   );
