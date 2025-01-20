@@ -8,6 +8,8 @@ import axios from "axios";
 import { authService } from "../../../app/services/authService";
 import { SignupRequestBody } from "../../../app/services/authService/signup";
 
+import { useAuth } from "../../../app/hooks/useAuth";
+
 const registerFormSchema = z.object({
   name: z.string().nonempty("Nome é obrigatório"),
   email: z
@@ -37,11 +39,13 @@ export function useRegisterController() {
     },
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
 
-      console.log({ accessToken });
+      signin(accessToken);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.message);

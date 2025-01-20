@@ -8,6 +8,8 @@ import axios from "axios";
 import { authService } from "../../../app/services/authService";
 import { SigninRequestBody } from "../../../app/services/authService/signin";
 
+import { useAuth } from "../../../app/hooks/useAuth";
+
 const loginFormSchema = z.object({
   email: z
     .string()
@@ -36,11 +38,13 @@ export function useLoginController() {
     },
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
 
-      console.log({ accessToken });
+      signin(accessToken);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data.message);
