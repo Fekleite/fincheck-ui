@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { localStorageKeys } from "../config/localStorageKeys";
 import { usersService } from "../services/usersService";
 
+import { PageLoader } from "../../ui/components/PageLoader";
+
 interface AuthContextValue {
   signedIn: boolean;
   signin(accessToken: string): void;
@@ -26,7 +28,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     return !!storedAccessToken;
   });
 
-  const { isError } = useQuery({
+  const { isError, isFetching, isSuccess } = useQuery({
     queryKey: ["users", "me"],
     queryFn: async () => {
       return usersService.me();
@@ -55,10 +57,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }, [isError, signout]);
 
+  if (isFetching) {
+    return <PageLoader />;
+  }
+
   return (
     <AuthContext.Provider
       value={{
-        signedIn,
+        signedIn: isSuccess && signedIn,
         signin,
         signout,
       }}
