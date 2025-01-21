@@ -32,6 +32,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       return usersService.me();
     },
     enabled: signedIn,
+    staleTime: Infinity,
   });
 
   const signin = useCallback((accessToken: string) => {
