@@ -1,17 +1,20 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import { useRef } from "react";
 
-import { EyeIcon } from "../../../components/icons/EyeIcon";
+import { EyeIcon } from "../../../../components/icons/EyeIcon";
 
 import { AccountCard } from "./AccountCard";
+import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
+import { useAccountsController } from "./useAccountsController";
 
 // @ts-expect-error tbd
 import "swiper/css";
 
 export function Accounts() {
   const swiperRef = useRef<SwiperType | null>(null);
+
+  const { sliderState, setSliderState } = useAccountsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-teal-900 px-4 py-8 md:p-10">
@@ -35,23 +38,11 @@ export function Accounts() {
             Minhas contas
           </strong>
 
-          <div>
-            <button
-              type="button"
-              className="rounded-full p-3 text-gray-50 transition-colors enabled:hover:bg-teal-800 disabled:text-gray-400 disabled:opacity-50"
-              onClick={() => swiperRef.current?.slidePrev()}
-            >
-              <ChevronLeftIcon className="h-6 w-6" />
-            </button>
-
-            <button
-              type="button"
-              className="rounded-full p-3 text-gray-50 transition-colors enabled:hover:bg-teal-800 disabled:text-gray-400 disabled:opacity-50"
-              onClick={() => swiperRef.current?.slideNext()}
-            >
-              <ChevronRightIcon className="h-6 w-6" />
-            </button>
-          </div>
+          <AccountsSliderNavigation
+            swiper={swiperRef}
+            isBeginning={sliderState.isBeginning}
+            isEnd={sliderState.isEnd}
+          />
         </div>
 
         <div>
@@ -59,6 +50,12 @@ export function Accounts() {
             spaceBetween={16}
             slidesPerView={2.1}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSlideChange={(swiper) => {
+              setSliderState({
+                isBeginning: swiper.isBeginning,
+                isEnd: swiper.isEnd,
+              });
+            }}
           >
             <SwiperSlide>
               <AccountCard
