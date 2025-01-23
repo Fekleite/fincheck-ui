@@ -14,7 +14,7 @@ import "swiper/css";
 export function Accounts() {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const { sliderState, setSliderState } = useAccountsController();
+  const { sliderState, setSliderState, windowWidth } = useAccountsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-teal-900 px-4 py-8 md:p-10">
@@ -45,10 +45,10 @@ export function Accounts() {
           />
         </div>
 
-        <div>
+        <div className="mt-10 lg:mt-0">
           <Swiper
             spaceBetween={16}
-            slidesPerView={2.1}
+            slidesPerView={windowWidth < 640 ? 1.2 : 2.1}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             onSlideChange={(swiper) => {
               setSliderState({
