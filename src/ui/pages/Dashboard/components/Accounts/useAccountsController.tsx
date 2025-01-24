@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useWindowWidth } from "../../../../../app/hooks/useWindowWitdh";
+import { useWindowWidth } from "../../../../../app/hooks/useWindowWidth";
 
 export function useAccountsController() {
   const [sliderState, setSliderState] = useState({
