@@ -17,7 +17,7 @@ export function AccountCard({
 }: AccountCardProps) {
   return (
     <div
-      className="flex h-52 flex-col justify-between rounded-2xl border-b-4 border-gray-500 bg-white p-4"
+      className="flex h-52 flex-col justify-between rounded-2xl border-b-4 border-gray-500 bg-white p-4 transition-colors hover:bg-gray-100"
       style={{ borderBottomColor: color }}
     >
       <div className="flex flex-col gap-4">
