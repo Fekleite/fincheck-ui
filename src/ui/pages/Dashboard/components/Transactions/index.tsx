@@ -8,6 +8,7 @@ import { MONTHS } from "../../../../../app/config/constants";
 
 import { MonthsSliderOption } from "./MonthsSliderOption";
 import { MonthsSliderNavigation } from "./MonthsSliderNavigation";
+import { TransactionCard } from "./TransactionCard";
 
 export function Transactions() {
   return (
@@ -53,7 +54,19 @@ export function Transactions() {
           </Swiper>
         </div>
 
-        <div>list</div>
+        <div className="box-content flex flex-1 flex-col gap-2">
+          {Array.from("1234").map((value) => {
+            return (
+              <TransactionCard
+                key={value}
+                name="Sálario"
+                date="01/01/2025"
+                type="income"
+                value={5000}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
