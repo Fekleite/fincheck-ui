@@ -10,7 +10,7 @@ export function TransactionSkeleton() {
         <div className="h-12 w-full animate-pulse rounded-md bg-gray-300" />
 
         <div className="flex flex-1 flex-col gap-2">
-          {Array.from<number>({ length: 5 }).map((value) => (
+          {Array.from("12345").map((value) => (
             <div
               key={value}
               className="h-20 w-full animate-pulse rounded-md bg-gray-300"
