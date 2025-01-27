@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
 import { useRef } from "react";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 
@@ -26,6 +27,7 @@ export function Accounts() {
     areValuesVisible,
     toggleValuesVisibility,
     isLoading,
+    accounts,
   } = useAccountsController();
 
   return (
@@ -63,52 +65,71 @@ export function Accounts() {
                 Minhas contas
               </strong>
 
-              <AccountsSliderNavigation
-                swiper={swiperRef}
-                isBeginning={sliderState.isBeginning}
-                isEnd={sliderState.isEnd}
-              />
+              {accounts.length > 0 && (
+                <AccountsSliderNavigation
+                  swiper={swiperRef}
+                  isBeginning={sliderState.isBeginning}
+                  isEnd={sliderState.isEnd}
+                />
+              )}
             </div>
 
             <div className="mt-10 lg:mt-0">
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={windowWidth < 640 ? 1.2 : 2.1}
-                onSwiper={(swiper) => (swiperRef.current = swiper)}
-                onSlideChange={(swiper) => {
-                  setSliderState({
-                    isBeginning: swiper.isBeginning,
-                    isEnd: swiper.isEnd,
-                  });
-                }}
-              >
-                <SwiperSlide>
-                  <AccountCard
-                    color="#7950F2"
-                    currentBalance={1000}
-                    name="Nubank"
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
+              {accounts.length > 0 && (
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={windowWidth < 640 ? 1.2 : 2.1}
+                  onSwiper={(swiper) => (swiperRef.current = swiper)}
+                  onSlideChange={(swiper) => {
+                    setSliderState({
+                      isBeginning: swiper.isBeginning,
+                      isEnd: swiper.isEnd,
+                    });
+                  }}
+                >
+                  <SwiperSlide>
+                    <AccountCard
+                      color="#7950F2"
+                      currentBalance={1000}
+                      name="Nubank"
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
 
-                <SwiperSlide>
-                  <AccountCard
-                    color="#FD7E14"
-                    currentBalance={500}
-                    name="Inter"
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
+                  <SwiperSlide>
+                    <AccountCard
+                      color="#FD7E14"
+                      currentBalance={500}
+                      name="Inter"
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
 
-                <SwiperSlide>
-                  <AccountCard
-                    color="#343A40"
-                    currentBalance={12000}
-                    name="XP"
-                    type="INVESTMENT"
-                  />
-                </SwiperSlide>
-              </Swiper>
+                  <SwiperSlide>
+                    <AccountCard
+                      color="#343A40"
+                      currentBalance={12000}
+                      name="XP"
+                      type="INVESTMENT"
+                    />
+                  </SwiperSlide>
+                </Swiper>
+              )}
+
+              {accounts.length === 0 && (
+                <button
+                  type="button"
+                  className="flex h-52 w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-white">
+                    <PlusIcon className="h-6 w-6" />
+                  </div>
+
+                  <span className="mx-auto max-w-28 font-medium -tracking-[0.5px]">
+                    Cadastre uma nova conta
+                  </span>
+                </button>
+              )}
             </div>
           </div>
         </>
