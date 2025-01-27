@@ -1,10 +1,10 @@
-interface TransactionSkeletonProps {
+interface TransactionsSkeletonProps {
   condensed?: boolean;
 }
 
-export function TransactionSkeleton({
+export function TransactionsSkeleton({
   condensed = false,
-}: TransactionSkeletonProps) {
+}: TransactionsSkeletonProps) {
   if (condensed) {
     return (
       <div className="flex flex-1 flex-col gap-2">

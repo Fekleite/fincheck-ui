@@ -11,7 +11,7 @@ import { MONTHS } from "../../../../../app/config/constants";
 import { MonthsSliderOption } from "./MonthsSliderOption";
 import { MonthsSliderNavigation } from "./MonthsSliderNavigation";
 import { TransactionCard } from "./TransactionCard";
-import { TransactionSkeleton } from "./TransactionSkeleton";
+import { TransactionsSkeleton } from "./TransactionsSkeleton";
 
 import { useTransactionsController } from "./useTransactionsController";
 
@@ -23,7 +23,7 @@ export function Transactions() {
 
   return (
     <div className="flex h-full w-full flex-col gap-6 rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
-      {isInitialLoading && <TransactionSkeleton />}
+      {isInitialLoading && <TransactionsSkeleton />}
 
       {!isInitialLoading && (
         <>
@@ -68,7 +68,7 @@ export function Transactions() {
               </Swiper>
             </div>
 
-            {isLoading && <TransactionSkeleton condensed />}
+            {isLoading && <TransactionsSkeleton condensed />}
 
             {!hasTransactions && !isLoading && (
               <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
