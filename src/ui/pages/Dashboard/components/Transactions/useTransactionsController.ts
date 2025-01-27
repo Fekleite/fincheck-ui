@@ -1,5 +1,6 @@
 export function useTransactionsController() {
   return {
-    isLoading: true,
+    isLoading: false,
+    transactions: [],
   };
 }
