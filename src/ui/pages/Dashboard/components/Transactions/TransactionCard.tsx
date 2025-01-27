@@ -18,7 +18,7 @@ export function TransactionCard({
   category,
 }: TransactionCardProps) {
   return (
-    <div className="flex w-full items-center justify-between rounded-2xl bg-white p-4">
+    <div className="flex w-full items-center justify-between gap-4 rounded-2xl bg-white p-4">
       <div className="flex items-center gap-3">
         <CategoryIcon type={type} category={category} />
 
