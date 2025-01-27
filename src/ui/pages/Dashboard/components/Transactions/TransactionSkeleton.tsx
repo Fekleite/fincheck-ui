@@ -1,4 +1,23 @@
-export function TransactionSkeleton() {
+interface TransactionSkeletonProps {
+  condensed?: boolean;
+}
+
+export function TransactionSkeleton({
+  condensed = false,
+}: TransactionSkeletonProps) {
+  if (condensed) {
+    return (
+      <div className="flex flex-1 flex-col gap-2">
+        {Array.from("12345").map((value) => (
+          <div
+            key={value}
+            className="h-20 w-full animate-pulse rounded-md bg-gray-300"
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex items-center justify-between">

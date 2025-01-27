@@ -16,13 +16,16 @@ import { TransactionSkeleton } from "./TransactionSkeleton";
 import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
-  const { isLoading, transactions } = useTransactionsController();
+  const { isLoading, isInitialLoading, transactions } =
+    useTransactionsController();
+
+  const hasTransactions = transactions.length > 0;
 
   return (
     <div className="flex h-full w-full flex-col gap-6 rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
-      {isLoading && <TransactionSkeleton />}
+      {isInitialLoading && <TransactionSkeleton />}
 
-      {!isLoading && (
+      {!isInitialLoading && (
         <>
           <header className="flex items-center justify-between">
             <button
@@ -65,7 +68,18 @@ export function Transactions() {
               </Swiper>
             </div>
 
-            {transactions.length > 0 && (
+            {isLoading && <TransactionSkeleton condensed />}
+
+            {!hasTransactions && !isLoading && (
+              <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
+                <img src={EmptyStateImg} alt="Sem transações" />
+                <span className="text-gray-700">
+                  Não encontramos nenhuma transação!
+                </span>
+              </div>
+            )}
+
+            {hasTransactions && !isLoading && (
               <div className="flex flex-1 flex-col gap-2">
                 {Array.from("1234").map((value) => {
                   return (
@@ -78,15 +92,6 @@ export function Transactions() {
                     />
                   );
                 })}
-              </div>
-            )}
-
-            {transactions.length === 0 && (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
-                <img src={EmptyStateImg} alt="Sem transações" />
-                <span className="text-gray-700">
-                  Não encontramos nenhuma transação!
-                </span>
               </div>
             )}
           </div>
