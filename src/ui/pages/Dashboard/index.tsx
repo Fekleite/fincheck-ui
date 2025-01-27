@@ -13,12 +13,12 @@ export function Dashboard() {
         <UserMenu />
       </header>
 
-      <main className="flex flex-1 flex-col gap-4 lg:flex-row">
-        <div className="w-full lg:w-1/2">
+      <main className="grid flex-1 grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-4">
+        <div className="w-full">
           <Accounts />
         </div>
 
-        <div className="w-full lg:w-1/2">
+        <div className="w-full">
           <Transactions />
         </div>
       </main>
