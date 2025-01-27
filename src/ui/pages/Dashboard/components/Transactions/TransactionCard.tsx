@@ -1,6 +1,8 @@
+import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
+import { useDashboard } from "../DashboardContext/useDashboard";
 
 interface TransactionCardProps {
   name: string;
@@ -17,6 +19,8 @@ export function TransactionCard({
   type,
   category,
 }: TransactionCardProps) {
+  const { areValuesVisible } = useDashboard();
+
   return (
     <div className="flex w-full items-center justify-between gap-4 rounded-2xl bg-white p-4">
       <div className="flex items-center gap-3">
@@ -29,7 +33,12 @@ export function TransactionCard({
         </div>
       </div>
 
-      <span className="font-medium -tracking-[0.5px] text-green-800">
+      <span
+        className={cn(
+          "font-medium -tracking-[0.5px] text-green-800",
+          !areValuesVisible && "blur-sm",
+        )}
+      >
         + {formatCurrency(value)}
       </span>
     </div>

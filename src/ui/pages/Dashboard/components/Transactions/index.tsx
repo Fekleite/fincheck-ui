@@ -54,7 +54,7 @@ export function Transactions() {
           </Swiper>
         </div>
 
-        <div className="box-content flex flex-1 flex-col gap-2">
+        <div className="flex flex-1 flex-col gap-2">
           {Array.from("1234").map((value) => {
             return (
               <TransactionCard

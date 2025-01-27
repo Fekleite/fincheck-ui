@@ -4,6 +4,9 @@ import { useRef } from "react";
 
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
+import { cn } from "../../../../../app/utils/cn";
+
 import { AccountCard } from "./AccountCard";
 import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
 import { useAccountsController } from "./useAccountsController";
@@ -14,7 +17,13 @@ import "swiper/css";
 export function Accounts() {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const { sliderState, setSliderState, windowWidth } = useAccountsController();
+  const {
+    sliderState,
+    setSliderState,
+    windowWidth,
+    areValuesVisible,
+    toggleValuesVisibility,
+  } = useAccountsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-teal-900 px-4 py-8 md:p-10">
@@ -22,12 +31,21 @@ export function Accounts() {
         <span className="-tracking-[0.5px] text-white">Saldo total</span>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl -tracking-[1px] text-white">
-            R$ 1000,00
+          <strong
+            className={cn(
+              "text-2xl -tracking-[1px] text-white",
+              !areValuesVisible && "blur-md",
+            )}
+          >
+            {formatCurrency(1000)}
           </strong>
 
-          <button type="button" className="p-3">
-            <EyeIcon open={false} />
+          <button
+            type="button"
+            className="p-3"
+            onClick={toggleValuesVisibility}
+          >
+            <EyeIcon open={!areValuesVisible} />
           </button>
         </div>
       </div>
