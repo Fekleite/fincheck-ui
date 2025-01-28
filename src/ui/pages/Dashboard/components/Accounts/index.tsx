@@ -51,7 +51,7 @@ export function Accounts() {
 
               <button
                 type="button"
-                className="p-3"
+                className="rounded-full p-3 transition-colors hover:bg-teal-800"
                 onClick={toggleValuesVisibility}
               >
                 <EyeIcon open={!areValuesVisible} />
@@ -119,7 +119,7 @@ export function Accounts() {
               {accounts.length === 0 && (
                 <button
                   type="button"
-                  className="flex h-52 w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
+                  className="flex h-52 w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white transition-colors hover:bg-teal-800"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-white">
                     <PlusIcon className="h-6 w-6" />
