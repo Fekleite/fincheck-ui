@@ -11,13 +11,13 @@ export function Fab() {
       <Dropdown.Trigger asChild>
         <button
           type="button"
-          className="group fixed bottom-4 right-4 rounded-full bg-teal-900 p-3 text-white transition-colors hover:bg-teal-800"
+          className="group fixed bottom-4 right-4 rounded-full bg-teal-900 p-3 text-white transition-colors hover:bg-teal-800 data-[state='open']:bg-teal-800"
         >
           <PlusIcon className="h-6 w-6 transition-transform group-data-[state='open']:rotate-45" />
         </button>
       </Dropdown.Trigger>
 
-      <Dropdown.Content align="end" sideOffset={8}>
+      <Dropdown.Content align="end" sideOffset={16}>
         <Dropdown.Item>
           <CategoryIcon type="expense" />
           Nova Despesa
