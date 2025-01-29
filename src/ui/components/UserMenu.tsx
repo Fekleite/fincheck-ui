@@ -18,10 +18,7 @@ export function UserMenu() {
       </Dropdown.Trigger>
 
       <Dropdown.Content align="end" sideOffset={8} className="w-36">
-        <Dropdown.Item
-          className="flex items-center justify-between gap-2"
-          onSelect={signout}
-        >
+        <Dropdown.Item className="justify-between" onSelect={signout}>
           Sair
           <ExitIcon className="h-4 w-4" />
         </Dropdown.Item>
