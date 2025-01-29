@@ -1,3 +1,4 @@
+import { Fab } from "../../components/Fab";
 import { Logo } from "../../components/Logo";
 import { UserMenu } from "../../components/UserMenu";
 
@@ -24,6 +25,8 @@ export function Dashboard() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   );
