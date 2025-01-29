@@ -1,8 +1,14 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
-export function DropdownTrigger({ children }: { children: React.ReactNode }) {
+import { cn } from "../../../app/utils/cn";
+
+export function DropdownTrigger({
+  children,
+  className,
+  ...attrs
+}: DropdownMenu.DropdownMenuTriggerProps) {
   return (
-    <DropdownMenu.Trigger className="outline-none">
+    <DropdownMenu.Trigger {...attrs} className={cn("outline-none", className)}>
       {children}
     </DropdownMenu.Trigger>
   );
