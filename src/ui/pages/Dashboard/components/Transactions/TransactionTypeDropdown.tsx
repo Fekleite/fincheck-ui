@@ -11,7 +11,7 @@ export function TransactionTypeDropdown() {
       <Dropdown.Trigger asChild>
         <button
           type="button"
-          className="flex items-center justify-between gap-2 py-3"
+          className="flex items-center justify-between gap-2 rounded-full p-3 transition-colors hover:bg-gray-200"
         >
           <TransactionsIcon />
 
