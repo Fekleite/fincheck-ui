@@ -8,7 +8,7 @@ import { ExpensesIcon } from "../../../../components/icons/ExpensesIcon";
 export function TransactionTypeDropdown() {
   return (
     <Dropdown.Root>
-      <Dropdown.Trigger>
+      <Dropdown.Trigger asChild>
         <button
           type="button"
           className="flex items-center justify-between gap-2 py-3"
