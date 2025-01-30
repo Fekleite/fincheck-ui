@@ -28,6 +28,7 @@ export function Accounts() {
     toggleValuesVisibility,
     isLoading,
     accounts,
+    openNewAccountModal,
   } = useAccountsController();
 
   return (
@@ -119,6 +120,7 @@ export function Accounts() {
               {accounts.length === 0 && (
                 <button
                   type="button"
+                  onClick={openNewAccountModal}
                   className="flex h-52 w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white transition-colors hover:bg-teal-800"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-dashed border-white">

@@ -1,10 +1,11 @@
-import { Fab } from "../../components/Fab";
 import { Logo } from "../../components/Logo";
 import { UserMenu } from "../../components/UserMenu";
 
 import { Accounts } from "./components/Accounts";
 import { DashboardProvider } from "./components/DashboardContext";
 import { Transactions } from "./components/Transactions";
+import { Fab } from "./components/Fab";
+import { NewAccountModal } from "./components/modals/NewAccountModal";
 
 export function Dashboard() {
   return (
@@ -27,6 +28,8 @@ export function Dashboard() {
         </main>
 
         <Fab />
+
+        <NewAccountModal />
       </div>
     </DashboardProvider>
   );
