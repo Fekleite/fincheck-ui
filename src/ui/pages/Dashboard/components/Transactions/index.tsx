@@ -11,12 +11,19 @@ import { MonthsSliderNavigation } from "./MonthsSliderNavigation";
 import { TransactionCard } from "./TransactionCard";
 import { TransactionsSkeleton } from "./TransactionsSkeleton";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
+import { FiltersModal } from "./FiltersModal";
 
 import { useTransactionsController } from "./useTransactionsController";
 
 export function Transactions() {
-  const { isLoading, isInitialLoading, transactions } =
-    useTransactionsController();
+  const {
+    isLoading,
+    isInitialLoading,
+    transactions,
+    isFilterModalOpen,
+    handleCloseFiltersModal,
+    handleOpenFiltersModal,
+  } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
 
@@ -32,6 +39,7 @@ export function Transactions() {
             <button
               type="button"
               className="rounded-full p-3 transition-colors hover:bg-gray-200"
+              onClick={handleOpenFiltersModal}
             >
               <FilterIcon />
             </button>
@@ -83,6 +91,11 @@ export function Transactions() {
               </div>
             )}
           </div>
+
+          <FiltersModal
+            open={isFilterModalOpen}
+            onClose={handleCloseFiltersModal}
+          />
         </>
       )}
     </div>
