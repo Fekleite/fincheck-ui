@@ -1,11 +1,15 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from "../../../../components/Dropdown";
 
-import { BankAccountIcon } from "./icons/BankAccountIcon";
-import { CategoryIcon } from "./icons/categories/CategoryIcon";
+import { BankAccountIcon } from "../../../../components/icons/BankAccountIcon";
+import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
+
+import { useDashboard } from "../DashboardContext/useDashboard";
 
 export function Fab() {
+  const { openNewAccountModal } = useDashboard();
+
   return (
     <Dropdown.Root>
       <Dropdown.Trigger asChild>
@@ -28,7 +32,7 @@ export function Fab() {
           Nova Receita
         </Dropdown.Item>
 
-        <Dropdown.Item>
+        <Dropdown.Item onSelect={openNewAccountModal}>
           <BankAccountIcon />
           Nova Conta
         </Dropdown.Item>
