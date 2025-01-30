@@ -5,14 +5,21 @@ import { cn } from "../../app/utils/cn";
 
 interface ModalProps {
   open: boolean;
+  onClose(): void;
   title: string;
   children: React.ReactNode;
   rightAction?: React.ReactNode;
 }
 
-export function Modal({ open, children, title, rightAction }: ModalProps) {
+export function Modal({
+  open,
+  onClose,
+  children,
+  title,
+  rightAction,
+}: ModalProps) {
   return (
-    <Dialog.Root open={open}>
+    <Dialog.Root open={open} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay
           className={cn(
@@ -24,7 +31,7 @@ export function Modal({ open, children, title, rightAction }: ModalProps) {
         <Dialog.Content
           aria-describedby={undefined}
           className={cn(
-            "fixed left-1/2 top-1/2 z-50 min-w-96 -translate-x-1/2 -translate-y-1/2 space-y-10 rounded-2xl border border-gray-100 bg-white p-6 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.1)] outline-none",
+            "fixed left-1/2 top-1/2 z-50 min-w-96 -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-gray-100 bg-white p-6 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.1)] outline-none",
             "data-[state=open]:animate-content-show",
           )}
         >
@@ -45,7 +52,7 @@ export function Modal({ open, children, title, rightAction }: ModalProps) {
             <div className="h-12 w-12">{rightAction}</div>
           </header>
 
-          <div>{children}</div>
+          <div className="mt-10 space-y-10">{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
