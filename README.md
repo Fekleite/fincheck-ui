@@ -11,6 +11,13 @@ Painel financeiro desenvolvido como projeto prático do curso JStack.
 - React Router DOM
 - Vite
 - Typescript
+- React Hook Form
+- React Query
+- Zod
+- Axios
+- Radix UI
+- Headless UI
+- Swiper
 
 ## Como utilizar?
 
