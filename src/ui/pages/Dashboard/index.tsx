@@ -6,6 +6,7 @@ import { DashboardProvider } from "./components/DashboardContext";
 import { Transactions } from "./components/Transactions";
 import { Fab } from "./components/Fab";
 import { NewAccountModal } from "./components/modals/NewAccountModal";
+import { NewTransactionModal } from "./components/modals/NewTransactionModal";
 
 export function Dashboard() {
   return (
@@ -30,6 +31,7 @@ export function Dashboard() {
         <Fab />
 
         <NewAccountModal />
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
   );
