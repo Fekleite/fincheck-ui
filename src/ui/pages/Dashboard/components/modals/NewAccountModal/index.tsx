@@ -1,3 +1,5 @@
+import { Button } from "../../../../../components/Button";
+import { ColorsDropdownInput } from "../../../../../components/ColorsDropdownInput";
 import { Input } from "../../../../../components/Input";
 import { InputCurrency } from "../../../../../components/InputCurrency";
 import { Modal } from "../../../../../components/Modal";
@@ -44,6 +46,10 @@ export function NewAccountModal() {
           <Input type="text" name="name" placeholder="Nome da Conta" />
 
           <Select placeholder="Tipo" options={mockedAccountTypes} />
+
+          <ColorsDropdownInput />
+
+          <Button className="h-14">Salvar</Button>
         </div>
       </form>
     </Modal>
