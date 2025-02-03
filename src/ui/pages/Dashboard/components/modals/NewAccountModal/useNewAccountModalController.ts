@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useDashboard } from "../../DashboardContext/useDashboard";
 import { CreateBankAccountRequestBody } from "../../../../../../app/services/backAccountService/create";
@@ -31,6 +31,8 @@ export function useNewAccountModalController() {
     resolver: zodResolver(newAccountFormSchema),
   });
 
+  const queryClient = useQueryClient();
+
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async (data: CreateBankAccountRequestBody) => {
       return bankAccountService.create(data);
@@ -42,6 +44,10 @@ export function useNewAccountModalController() {
       await mutateAsync({
         ...data,
         initialBalance: Number(data.initialBalance),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["bank-accounts"],
       });
 
       toast.success("Conta criada com sucesso.");
