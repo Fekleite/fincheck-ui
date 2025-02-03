@@ -12,6 +12,8 @@ interface SelectProps {
     value: string;
     label: string;
   }[];
+  onChange(value: string): void;
+  value?: string;
 }
 
 export function Select({
@@ -19,11 +21,14 @@ export function Select({
   error,
   placeholder,
   options,
+  onChange,
+  value,
 }: SelectProps) {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(value);
 
   function handleSelect(value: string) {
     setSelectedValue(value);
+    onChange(value);
   }
 
   return (
@@ -38,7 +43,7 @@ export function Select({
           {placeholder}
         </label>
 
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root value={selectedValue} onValueChange={handleSelect}>
           <RdxSelect.Trigger
             className={cn(
               "relative h-[52px] w-full rounded-lg border border-gray-500 bg-white px-3 text-left text-sm text-gray-800 outline-none focus:border-gray-800",
