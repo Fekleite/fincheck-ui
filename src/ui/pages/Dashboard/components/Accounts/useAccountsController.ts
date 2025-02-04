@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useWindowWidth } from "../../../../../app/hooks/useWindowWidth";
 import { useDashboard } from "../DashboardContext/useDashboard";
 import { useQuery } from "@tanstack/react-query";
-import { bankAccountService } from "../../../../../app/services/backAccountService";
+import { bankAccountService } from "../../../../../app/services/bankAccountService";
 
 export function useAccountsController() {
   const [sliderState, setSliderState] = useState({
