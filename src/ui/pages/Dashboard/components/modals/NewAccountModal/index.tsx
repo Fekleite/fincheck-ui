@@ -9,20 +9,7 @@ import { Select } from "../../../../../components/Select";
 
 import { useNewAccountModalController } from "./useNewAccountModalController";
 
-const mockedAccountTypes = [
-  {
-    value: "CASH",
-    label: "Dinheiro Físico",
-  },
-  {
-    value: "CHECKING",
-    label: "Conta corrente",
-  },
-  {
-    value: "INVESTMENT",
-    label: "Investimentos",
-  },
-];
+import { ACCOUNT_TYPE_OPTIONS } from "../../../../../../app/config/constants";
 
 export function NewAccountModal() {
   const {
@@ -74,7 +61,7 @@ export function NewAccountModal() {
             render={({ field: { onChange, value } }) => (
               <Select
                 placeholder="Tipo"
-                options={mockedAccountTypes}
+                options={ACCOUNT_TYPE_OPTIONS}
                 error={errors.type?.message}
                 onChange={onChange}
                 value={value}
