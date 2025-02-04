@@ -1,3 +1,4 @@
+import { AccountType } from "../../../../../app/entities/BankAccount";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 
@@ -5,24 +6,20 @@ import { BankAccountTypeIcon } from "../../../../components/icons/BankAccountTyp
 import { useDashboard } from "../DashboardContext/useDashboard";
 
 interface AccountCardProps {
-  name: string;
-  type: "CHECKING" | "INVESTMENT" | "CASH";
-  color: string;
-  currentBalance: number;
+  data: AccountType;
 }
 
-export function AccountCard({
-  name,
-  type,
-  color,
-  currentBalance,
-}: AccountCardProps) {
-  const { areValuesVisible } = useDashboard();
+export function AccountCard({ data }: AccountCardProps) {
+  const { areValuesVisible, openEditAccountModal } = useDashboard();
+
+  const { name, type, color, currentBalance } = data;
 
   return (
     <div
       className="flex h-52 flex-col justify-between rounded-2xl border-b-4 border-gray-500 bg-white p-4 transition-colors hover:bg-gray-100"
       style={{ borderBottomColor: color }}
+      role="button"
+      onClick={() => openEditAccountModal(data)}
     >
       <div className="flex flex-col gap-4">
         <BankAccountTypeIcon type={type} />

@@ -2,12 +2,13 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { useDashboard } from "../../DashboardContext/useDashboard";
-import { CreateBankAccountRequestBody } from "../../../../../../app/services/backAccountService/create";
-import { bankAccountService } from "../../../../../../app/services/backAccountService";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+import { useDashboard } from "../../DashboardContext/useDashboard";
+
+import { CreateBankAccountRequestBody } from "../../../../../../app/services/bankAccountService/create";
+import { bankAccountService } from "../../../../../../app/services/bankAccountService";
 
 const newAccountFormSchema = z.object({
   name: z.string().nonempty("Nome da conta é obrigatório"),
