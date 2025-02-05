@@ -3,3 +3,8 @@ export enum BankAccountsTypeEnum {
   INVESTMENT = "INVESTMENT",
   CASH = "CASH",
 }
+
+export enum TransactionTypeEnum {
+  INCOME = "INCOME",
+  EXPENSE = "EXPENSE",
+}
