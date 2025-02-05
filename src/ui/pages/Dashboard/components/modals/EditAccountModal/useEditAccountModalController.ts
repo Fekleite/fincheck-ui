@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 import { useDashboard } from "../../DashboardContext/useDashboard";
 
@@ -26,6 +27,8 @@ export function useEditAccountModalController() {
   const { isEditAccountModalOpen, closeEditAccountModal, accountBeingEdited } =
     useDashboard();
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const {
     handleSubmit: hookFormHandleSubmit,
     register,
@@ -43,15 +46,22 @@ export function useEditAccountModalController() {
 
   const queryClient = useQueryClient();
 
-  const { isPending, mutateAsync } = useMutation({
+  const { isPending, mutateAsync: updateAccount } = useMutation({
     mutationFn: async (data: UpdateBankAccountRequestBody) => {
       return bankAccountService.update(data);
     },
   });
 
+  const { isPending: isRemovePending, mutateAsync: removeAccount } =
+    useMutation({
+      mutationFn: async (bankAccountId: string) => {
+        return bankAccountService.remove(bankAccountId);
+      },
+    });
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateAccount({
         ...data,
         initialBalance: Number(data.initialBalance),
         id: accountBeingEdited!.id,
@@ -72,6 +82,33 @@ export function useEditAccountModalController() {
     }
   });
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+  async function handleDeleteAccount() {
+    try {
+      await removeAccount(accountBeingEdited!.id);
+
+      queryClient.invalidateQueries({
+        queryKey: ["bank-accounts"],
+      });
+
+      toast.success("Conta deletada com sucesso.");
+      closeEditAccountModal();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Ocorreu um erro ao deletar a conta.");
+      }
+    }
+  }
+
   return {
     isEditAccountModalOpen,
     closeEditAccountModal,
@@ -81,5 +118,10 @@ export function useEditAccountModalController() {
     control,
     isPending,
     accountBeingEdited,
+    isDeleteModalOpen,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
+    handleDeleteAccount,
+    isRemovePending,
   };
 }

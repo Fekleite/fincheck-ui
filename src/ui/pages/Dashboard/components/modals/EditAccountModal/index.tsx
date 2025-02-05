@@ -11,17 +11,7 @@ import { TrashIcon } from "../../../../../components/icons/TrashIcon";
 import { useEditAccountModalController } from "./useEditAccountModalController";
 
 import { ACCOUNT_TYPE_OPTIONS } from "../../../../../../app/config/constants";
-
-function CloseButton() {
-  return (
-    <button
-      type="button"
-      className="left-0 flex h-12 w-12 items-center justify-center rounded-full outline-none transition-colors hover:bg-slate-200"
-    >
-      <TrashIcon className="h-5 w-5 text-red-900" />
-    </button>
-  );
-}
+import { ConfirmDeleteModal } from "../../../../../components/ConfirmDeleteModal";
 
 export function EditAccountModal() {
   const {
@@ -32,14 +22,40 @@ export function EditAccountModal() {
     control,
     handleSubmit,
     isPending,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount,
+    isRemovePending,
   } = useEditAccountModalController();
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        open={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteAccount}
+        title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
+        isLoading={isRemovePending}
+      />
+    );
+  }
 
   return (
     <Modal
       title="Conta"
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
-      rightAction={<CloseButton />}
+      rightAction={
+        <button
+          type="button"
+          className="left-0 flex h-12 w-12 items-center justify-center rounded-full outline-none transition-colors hover:bg-slate-200"
+          onClick={handleOpenDeleteModal}
+        >
+          <TrashIcon className="h-5 w-5 text-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
