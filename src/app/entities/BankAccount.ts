@@ -2,7 +2,7 @@ import { BankAccountsTypeEnum } from "../config/enum";
 
 type BankAccountType = keyof typeof BankAccountsTypeEnum;
 
-export interface AccountType {
+export interface BankAccount {
   id: string;
   name: string;
   initialBalance: number;
