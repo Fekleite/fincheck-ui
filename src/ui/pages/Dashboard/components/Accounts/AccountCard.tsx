@@ -1,4 +1,4 @@
-import { AccountType } from "../../../../../app/entities/BankAccount";
+import { BankAccount } from "../../../../../app/entities/BankAccount";
 import { cn } from "../../../../../app/utils/cn";
 import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 
@@ -6,7 +6,7 @@ import { BankAccountTypeIcon } from "../../../../components/icons/BankAccountTyp
 import { useDashboard } from "../DashboardContext/useDashboard";
 
 interface AccountCardProps {
-  data: AccountType;
+  data: BankAccount;
 }
 
 export function AccountCard({ data }: AccountCardProps) {
