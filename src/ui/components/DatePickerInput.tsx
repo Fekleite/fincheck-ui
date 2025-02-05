@@ -9,12 +9,20 @@ import { DatePicker } from "./DatePicker";
 interface DatePickerInputProps {
   error?: string;
   className?: string;
+  onChange(date: Date): void;
+  value?: Date;
 }
 
-export function DatePickerInput({ error, className }: DatePickerInputProps) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+export function DatePickerInput({
+  error,
+  className,
+  value,
+  onChange,
+}: DatePickerInputProps) {
+  const [selectedDate, setSelectedDate] = useState(value ?? new Date());
 
   function handleChange(date: Date) {
+    onChange(date);
     setSelectedDate(date);
   }
 
