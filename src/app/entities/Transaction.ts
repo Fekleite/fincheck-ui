@@ -1,13 +1,13 @@
 import { TransactionTypeEnum } from "../config/enum";
+import { Category } from "./Category";
 
-type TransactionType = keyof typeof TransactionTypeEnum;
+export type TransactionType = keyof typeof TransactionTypeEnum;
 
 export interface Transaction {
   id: string;
-  backAccountId: string;
-  categoryId: string;
+  category?: Category;
   name: string;
-  date: Date;
+  date: string;
   type: TransactionType;
   value: number;
 }
