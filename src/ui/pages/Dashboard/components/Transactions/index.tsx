@@ -77,14 +77,11 @@ export function Transactions() {
 
             {hasTransactions && !isLoading && (
               <div className="flex flex-1 flex-col gap-2">
-                {Array.from("1234").map((value) => {
+                {transactions.map((transaction) => {
                   return (
                     <TransactionCard
-                      key={value}
-                      name="Sálario"
-                      date="01/01/2025"
-                      type="income"
-                      value={5000}
+                      key={transaction.id}
+                      transaction={transaction}
                     />
                   );
                 })}
