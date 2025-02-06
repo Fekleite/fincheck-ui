@@ -14,4 +14,3 @@ export function CategoryIcon({ type, category }: CategoryIconProps) {
 
   return <Icon />;
 }
-

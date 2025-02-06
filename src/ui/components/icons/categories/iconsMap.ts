@@ -25,4 +25,3 @@ export const iconsMap = {
     travel: Travel,
   },
 };
-
