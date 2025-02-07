@@ -6,6 +6,8 @@ import { Select } from "../../../../../components/Select";
 import { Button } from "../../../../../components/Button";
 import { Input } from "../../../../../components/Input";
 import { DatePickerInput } from "../../../../../components/DatePickerInput";
+import { ConfirmDeleteModal } from "../../../../../components/ConfirmDeleteModal";
+import { TrashIcon } from "../../../../../components/icons/TrashIcon";
 
 import { Transaction } from "../../../../../../app/entities/Transaction";
 
@@ -30,15 +32,41 @@ export function EditTransactionModal({
     accounts,
     categories,
     isPending,
+    isDeleteModalOpen,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
+    isRemovePending,
+    handleDeleteTransaction,
   } = useEditTransactionModalController(transaction, onClose);
 
   const isExpense = transaction?.type === "EXPENSE";
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        open={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteTransaction}
+        title={`Tem certeza que deseja excluir esta ${isExpense ? "despesa" : "receita"}`}
+        isLoading={isRemovePending}
+      />
+    );
+  }
 
   return (
     <Modal
       title={isExpense ? "Despesa" : "Receita"}
       open={open}
       onClose={onClose}
+      rightAction={
+        <button
+          type="button"
+          className="left-0 flex h-12 w-12 items-center justify-center rounded-full outline-none transition-colors hover:bg-slate-200"
+          onClick={handleOpenDeleteModal}
+        >
+          <TrashIcon className="h-5 w-5 text-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>

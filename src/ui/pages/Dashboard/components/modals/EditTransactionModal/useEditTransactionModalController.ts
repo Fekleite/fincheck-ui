@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useBankAccounts } from "../../../../../../app/hooks/useBankAccounts";
@@ -27,6 +27,8 @@ export function useEditTransactionModalController(
   transaction: Transaction | null,
   handleCloseEditModal: () => void,
 ) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const {
     handleSubmit: hookFormHandleSubmit,
     register,
@@ -49,15 +51,22 @@ export function useEditTransactionModalController(
   const { accounts } = useBankAccounts();
   const { categories } = useCategories();
 
-  const { isPending, mutateAsync } = useMutation({
+  const { isPending, mutateAsync: updateTransaction } = useMutation({
     mutationFn: async (data: UpdateTransactionRequestBody) => {
       return transactionsService.update(data);
     },
   });
 
+  const { isPending: isRemovePending, mutateAsync: removeTransaction } =
+    useMutation({
+      mutationFn: async (transactionId: string) => {
+        return transactionsService.remove(transactionId);
+      },
+    });
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
-      await mutateAsync({
+      await updateTransaction({
         ...data,
         id: transaction!.id,
         type: transaction!.type,
@@ -67,10 +76,6 @@ export function useEditTransactionModalController(
 
       queryClient.invalidateQueries({
         queryKey: ["transactions"],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["bank-accounts"],
       });
 
       toast.success("Transação editada com sucesso.");
@@ -85,6 +90,33 @@ export function useEditTransactionModalController(
     }
   });
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+  async function handleDeleteTransaction() {
+    try {
+      await removeTransaction(transaction!.id);
+
+      queryClient.invalidateQueries({
+        queryKey: ["transactions"],
+      });
+
+      toast.success("Transação deletada com sucesso.");
+      handleCloseEditModal();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Ocorreu um erro ao deletar a Ttansação.");
+      }
+    }
+  }
+
   const filteredCategories = useMemo(() => {
     return categories.filter((category) => category.type === transaction?.type);
   }, [categories, transaction]);
@@ -97,5 +129,10 @@ export function useEditTransactionModalController(
     accounts,
     categories: filteredCategories,
     isPending,
+    isDeleteModalOpen,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction,
+    isRemovePending,
   };
 }
