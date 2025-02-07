@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useTransactions } from "../../../../../app/hooks/useTransactions";
 import { TransactionsParams } from "../../../../../app/services/transactionsService/getAll";
+import { Transaction } from "../../../../../app/entities/Transaction";
 
 type Filters = TransactionsParams;
 type FiltersKeys = keyof TransactionsParams;
 
 export function useTransactionsController() {
-  const [isFilterModalOpen, setIsFiltersModalOpen] = useState(false);
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [transactionBeingEdited, setTransactionBeingEdited] =
+    useState<Transaction | null>(null);
 
   const { transactions, isFetching, isLoading, refetch } =
     useTransactions(filters);
@@ -48,15 +52,29 @@ export function useTransactionsController() {
     setIsFiltersModalOpen(false);
   }
 
+  const handleOpenEditModal = useCallback((transaction: Transaction) => {
+    setTransactionBeingEdited(transaction);
+    setIsEditModalOpen(true);
+  }, []);
+
+  const handleCloseEditModal = useCallback(() => {
+    setTransactionBeingEdited(null);
+    setIsEditModalOpen(false);
+  }, []);
+
   return {
     isInitialLoading: isLoading,
     isLoading: isFetching,
     transactions,
-    isFilterModalOpen,
+    isFilterModalOpen: isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
     filters,
     handleChangeFilters,
     handleApplyFilters,
+    handleOpenEditModal,
+    handleCloseEditModal,
+    isEditModalOpen,
+    transactionBeingEdited,
   };
 }
