@@ -8,15 +8,23 @@ import { useDashboard } from "../DashboardContext/useDashboard";
 
 interface TransactionCardProps {
   transaction: Transaction;
+  onClick?: (transaction: Transaction) => void;
 }
 
-export function TransactionCard({ transaction }: TransactionCardProps) {
+export function TransactionCard({
+  transaction,
+  onClick,
+}: TransactionCardProps) {
   const { areValuesVisible } = useDashboard();
 
   const isExpense = transaction.type === "EXPENSE";
 
   return (
-    <div className="flex w-full items-center justify-between gap-4 rounded-2xl bg-white p-4">
+    <div
+      role="button"
+      onClick={() => onClick && onClick(transaction)}
+      className="flex w-full items-center justify-between gap-4 rounded-2xl bg-white p-4"
+    >
       <div className="flex items-center gap-3">
         <CategoryIcon
           type={isExpense ? "expense" : "income"}

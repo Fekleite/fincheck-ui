@@ -14,6 +14,7 @@ import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 import { FiltersModal } from "./FiltersModal";
 
 import { useTransactionsController } from "./useTransactionsController";
+import { EditTransactionModal } from "../modals/EditTransactionModal";
 
 export function Transactions() {
   const {
@@ -26,6 +27,10 @@ export function Transactions() {
     handleChangeFilters,
     filters,
     handleApplyFilters,
+    handleCloseEditModal,
+    handleOpenEditModal,
+    isEditModalOpen,
+    transactionBeingEdited,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -90,16 +95,29 @@ export function Transactions() {
             )}
 
             {hasTransactions && !isLoading && (
-              <div className="flex flex-1 flex-col gap-2">
-                {transactions.map((transaction) => {
-                  return (
-                    <TransactionCard
-                      key={transaction.id}
-                      transaction={transaction}
-                    />
-                  );
-                })}
-              </div>
+              <>
+                <div className="flex flex-1 flex-col gap-2">
+                  {transactions.map((transaction) => {
+                    return (
+                      <TransactionCard
+                        key={transaction.id}
+                        transaction={transaction}
+                        onClick={(transaction) =>
+                          handleOpenEditModal(transaction)
+                        }
+                      />
+                    );
+                  })}
+                </div>
+
+                {transactionBeingEdited && (
+                  <EditTransactionModal
+                    open={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    transaction={transactionBeingEdited}
+                  />
+                )}
+              </>
             )}
           </div>
 
