@@ -5,14 +5,14 @@ import { Dropdown } from "./Dropdown";
 import { useAuth } from "../../app/hooks/useAuth";
 
 export function UserMenu() {
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
 
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-teal-100 bg-teal-50">
           <span className="text-sm font-medium -tracking-[0.5] text-teal-900">
-            FL
+            {user?.name.slice(0, 2).toUpperCase()}
           </span>
         </div>
       </Dropdown.Trigger>
