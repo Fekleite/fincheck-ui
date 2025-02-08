@@ -7,6 +7,7 @@ export function useCategories() {
     queryFn: async () => {
       return categoriesService.getAll();
     },
+    staleTime: Infinity,
   });
 
   return {

@@ -7,6 +7,7 @@ export function useBankAccounts() {
     queryFn: async () => {
       return bankAccountService.getAll();
     },
+    staleTime: Infinity,
   });
 
   return {
