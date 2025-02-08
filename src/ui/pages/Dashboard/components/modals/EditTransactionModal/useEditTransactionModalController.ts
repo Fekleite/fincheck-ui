@@ -78,6 +78,10 @@ export function useEditTransactionModalController(
         queryKey: ["transactions"],
       });
 
+      queryClient.invalidateQueries({
+        queryKey: ["bank-accounts"],
+      });
+
       toast.success("Transação editada com sucesso.");
       handleCloseEditModal();
       reset();
@@ -104,6 +108,10 @@ export function useEditTransactionModalController(
 
       queryClient.invalidateQueries({
         queryKey: ["transactions"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["bank-accounts"],
       });
 
       toast.success("Transação deletada com sucesso.");
